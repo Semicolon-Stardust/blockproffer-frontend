@@ -8,7 +8,7 @@ import Rating from '../Rating/Rating';
 // import { createPoll } from '../../Blockchain.services'
 
 
-function Createpoll() {
+export default function Createpoll() {
 
 
   // ------------------ Hooks ------------------ //
@@ -18,15 +18,12 @@ function Createpoll() {
   const [roomErr, setRoomErr] = useState(null);
 
   // Hooks for handling form data
-  const [pollTitle, setPollTitle] = useState('');
-  const [pollDesc, setPollDesc] = useState('');
+  const [form, setForm] = useState({
+    startDate: new Date()
+  });
   const [options, setOptions] = useState([]);
   const [sendEmail, setSendEmail] = useState(false);
   const [visibility, setVisibility] = useState(false);
-  const [startDate, setStartDate] = useState(null);
-  const [startTime, setStartTime] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  const [endTime, setEndTime] = useState(null);
 
   // Hooks for handling file upload
   const [file, setFile] = useState(null);
@@ -37,30 +34,31 @@ function Createpoll() {
 
   // ----------- Functions to handle form data states ----------- //
 
-  const handleTitle = e => setPollTitle(e.target.value);
-  const handleDesc = e => setPollDesc(e.target.value);
-  const handleStartDate = e => setStartDate(e.target.value);
-  const handleStartTime = e => setStartTime(e.target.value);
-  const handleEndDate = e => setEndDate(e.target.value);
-  const handleEndTime = e => setEndTime(e.target.value);
-  const handleSendEmail = e => setSendEmail(sendEmail ? false : true);
+  const handleForm = e => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    })
+  }
+  const handleSendEmail = e => {
+    setSendEmail(sendEmail ? false : true);
+  }
   const handleVisibility = e => setVisibility(visibility ? false : true);
 
 
-  new Date().getTime()
+
   // ----------- Functions for file handling ----------- //
 
-  new Date().getTime()
   const uploadHandler = (e) => {
     setFileError("");
     
     // Checking if user has selected wrong file
     if (e.target.files.length) {
+
         const inputFile = e.target.files[0];
-
         const allowedExtensions = ["csv"];
-
         const fileExtension = inputFile?.type.split("/")[1];
+
         if (!allowedExtensions.includes(fileExtension)) {
             setFileError("Please input a csv file !");
             return -1;
@@ -77,31 +75,44 @@ function Createpoll() {
 
   useKey("Enter", handleEnter);
 
+
+
+
   const handleFileParse = (e) => {
          
-    // If user clicks the parse button without
-    // a file we show a error
     let inpFile = uploadHandler(e);
     
     if (!inpFile) return setFileError("Enter a valid file");
-
     if (inpFile === -1) return setFileError("Please input a csv file !");
 
     setFile(inpFile);
 
-    // Initialize a reader which allows user
-    // to read any file or blob.
     const reader = new FileReader();
-     
-    // Event listener on reader when the file
-    // loads, we parse it and set the data.
     reader.onload = ({ target }) => {
         const csv =  Papa.parse(target.result, { header: true });
         const parsedData = csv?.data;
+
+        if (parsedData[0].Name === undefined){
+          setFileError("Please input a csv file with a column named 'Name' !");
+          return;
+        }
+        else if(sendEmail && parsedData[0].Email === undefined){
+          setFileError("Please input a csv file with a column named 'Email' !");
+          return;
+        }
+        else if (parsedData[0].Token === undefined && parsedData[0].Email === undefined){
+          setFileError("Please input a csv file with a column named 'Token' or 'Email' !");
+          return;
+        }
+
         setFileData(parsedData);
     };
     reader.readAsText(inpFile);
   }
+
+
+
+  // ----------- Form Submission ----------- //
 
 
   const onFormSubmit = async (e) => {
@@ -114,16 +125,29 @@ function Createpoll() {
       return;
     }
 
+    if (fileData.length < 1) {
+      setRoomErr("Please add some voters through csv file")
+      alert("Please add some voters through csv file");
+      return;
+    }
+
+    if (!sendEmail && fileData[0].Token === undefined) {
+      setRoomErr("Please add a csv file with the column 'Token'")
+      alert("Please add a csv file with the column 'Token'");
+      return;
+    }
+
+    if (sendEmail && fileData[0].Email === undefined) {
+      setRoomErr("Please add a csv file with the column 'Email'")
+      alert("Please add a csv file with the column 'Email'");
+      return;
+    }
+
     const formData = {
       form: {
-      title : pollTitle,
-      description : pollDesc,
+      ...form,
       pollOptions : options,
       resultVisibility : visibility,
-      startDate,
-      startTime,
-      endDate,
-      endTime,
       allowedUsers : fileData
     },
     sendEmail
@@ -170,7 +194,7 @@ function Createpoll() {
           </label>
           <div className='indicator w-full'>
               <span className="indicator-item badge">Required</span>
-              <input type="text" name="poll-title" id="poll-title" onChange={handleTitle} value={pollTitle} required placeholder="Title" className="input input-bordered input-error w-full" />
+              <input type="text" name="title" id="poll-title" onChange={handleForm} value={form.title} required placeholder="Title" className="input input-bordered input-error w-full" />
           </div>
         </div>
         <div class='relative'>
@@ -180,7 +204,7 @@ function Createpoll() {
         </label>
         <div className='indicator w-full'>
               <span className="indicator-item badge">Required</span>
-              <textarea name="poll-desc" className="textarea textarea-info w-full resize-none" cols="30" rows="10" placeholder='Description' onChange={handleDesc} value={pollDesc} required></textarea>
+              <textarea name="description" className="textarea textarea-info w-full resize-none" cols="30" rows="10" placeholder='Description' onChange={handleForm} value={form.description} required></textarea>
         </div>
         </div>
         
@@ -236,12 +260,12 @@ function Createpoll() {
             </label>
 
             
-            <input type="date" placeholder="Start Date" className="input input-bordered text-center input-warning w-full " name="startDate" id="startDate" onChange={handleStartDate} value={startDate} min={new Date().toISOString().split("T")[0]} />
+            <input type="date" placeholder="Start Date" className="input input-bordered text-center input-warning w-full " name="startDate" id="startDate" onChange={handleForm} value={form.startDate} min={new Date().toISOString().split("T")[0]} />
             <label className="label">
               <span className="label-text text-xl">Start Time</span>
               <span className="label-text-alt">Required</span>
             </label>
-            <input type="time" class="input input-bordered input-accent text-center w-full " name='startTime' id='startTime' onChange={handleStartTime} value={startTime} min={`${new Date().getHours()}:${new Date().getMinutes()}`} />
+            <input type="time" class="input input-bordered input-accent text-center w-full " name='startTime' id='startTime' onChange={handleForm} value={form.startTime} min={`${new Date().getHours()}:${new Date().getMinutes()}`} />
           </div>
           
           <div class="inline-flex items-center justify-center w-full">
@@ -254,12 +278,12 @@ function Createpoll() {
               <span className="label-text text-xl">End Date</span>
               <span className="label-text-alt">Required</span>
             </label>
-            <input type="date" placeholder="End Date" className="input input-bordered text-center input-warning w-full " name="endDate" id="endDate" onChange={handleEndDate} value={endDate} min={new Date(startDate).toISOString().split("T")[0]} />
+            <input type="date" placeholder="End Date" className="input input-bordered text-center input-warning w-full " name="endDate" id="endDate" onChange={handleForm} value={form.endDate} min={new Date(form.startDate).toISOString().split("T")[0]} />
             <label className="label">
               <span className="label-text text-xl">End Time</span>
               <span className="label-text-alt">Required</span>
             </label>
-            <input type="time" class="input input-bordered input-accent text-center w-full " name='endTime' id='endTime' onChange={handleEndTime} value={endTime}/>
+            <input type="time" class="input input-bordered input-accent text-center w-full " name='endTime' id='endTime' onChange={handleForm} value={form.endTime}/>
           </div>
         </div>
         <div class="grid justify-items-end mt-4 mb-4">
@@ -288,5 +312,3 @@ function Createpoll() {
     </>
   )
 }
-
-export default Createpoll
