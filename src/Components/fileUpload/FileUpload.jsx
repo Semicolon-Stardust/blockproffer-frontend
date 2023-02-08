@@ -2,7 +2,6 @@ import React from 'react'
 
 function FileUpload(props) {
 
-
   return (
     <>
         <div className='pt-4 file-card'>
@@ -19,9 +18,6 @@ function FileUpload(props) {
               </div>
             </div>
         </div>
-        <label className="label">
-          <span className="label-text text-xl">{(props.file !== null) ? props.file.name + " is parsed!" : ""}</span>
-        </label>
     </>
   )
 }
