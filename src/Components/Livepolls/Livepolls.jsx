@@ -110,12 +110,7 @@ async function sendRoomReq(e){
             
             <div className="w-full flex items-center justify-center flex-row gap-[1rem]">
               <div className="flex flex-col">
-                  {/* <label className="label">
-                    <span className="label-text text-xl">Enter Room ID</span>
-                    <span className="label-text-alt">Title of the Voting Poll You Want</span>
-                  </label> */}
                   <div className='indicator w-full'>
-                      {/* <span className="indicator-item badge">Required</span> */}
                       <input type="text" name="poll-title" id="poll-title" onChange={changeRoomData} value={roomName} required placeholder="Room ID" className="input input-bordered input-error w-full" />
                   </div>
               </div>
@@ -125,8 +120,6 @@ async function sendRoomReq(e){
               </button>
 
             </div>
-
-            {/* <Link to='/PollClosed' type="button" className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Vote Already Ended</Link> */}
 
           </div>
             </div>

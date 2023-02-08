@@ -15,7 +15,7 @@ function Home() {
                 <h1 className="mb-5 text-5xl max-sm:text-3xl font-bold">Secure Your Voice, Empower Your Community with Decentralized Voting</h1>
                 <p className="mb-5 max-sm:text-xl">Revolutionize the way you make decisions with BlockProffer, the decentralized voting platform. Empower your community by creating and participating in secure, transparent, and tamper-proof voting processes. Say goodbye to intermediaries and make your voice heard with blockchain technology. Join the future of fair and democratic voting now.</p>
                 <div className='flex items-center justify-center gap-[1rem]'>
-                    <button className="btn btn-primary">Get Started</button>
+                    <Link to="/createpolls" className="btn btn-primary">Get Started</Link>
                     <button className="btn btn-primary">Documentation</button>
                 </div>
                 </div>
@@ -228,16 +228,16 @@ function Home() {
                         <div className="card-body">
                             <h2 className="card-title">How do I create a new Poll? </h2>
                             <p>Just follow to the button and simply fill the form as directed.</p>
-                            <div className="card-actions justify-end">
+                            <div className="card-actions justify-end pt-2">
                             <Link to='/createpolls' className="btn btn-primary">Goto Create Poll</Link>
                             </div>
                         </div>
                     </div>
                     <div className="card w-96 bg-base-100 shadow-xl">
                         <div className="card-body">
-                            <h2 className="card-title">How do we take part in a Live Poll</h2>
-                            {/* <p>Live Poll </p> */}
-                            <div className="card-actions justify-end">
+                            <h2 className="card-title">How do we take part in a Live Poll?</h2>
+                            <p>Head to Live Polls and enter your Room ID and Token ID to enter the main voting poll. </p>
+                            <div className="card-actions justify-end pt-2">
                             <Link to='/livepolls' className="btn btn-primary">Goto Live Poll</Link>
                             </div>
                         </div>
@@ -246,7 +246,7 @@ function Home() {
                         <div className="card-body">
                             <h2 className="card-title">How does BlockProffer actually work?</h2>
                             <p>Please Follow our Documentation which will help you get started with BlockProffer.</p>
-                            <div className="card-actions justify-end">
+                            <div className="card-actions justify-end pt-2">
                             <Link className="btn btn-primary">Goto Documentation</Link>
                             </div>
                         </div>
