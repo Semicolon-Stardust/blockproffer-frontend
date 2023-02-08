@@ -14,7 +14,7 @@ import Camera from './Components/Camera/Camera';
 
 function App() {
   return (
-    <>
+    <div className='scroll-smooth'>
     <Header />
     <Routes>
       <Route path='/' element={<Home />} />
@@ -28,7 +28,7 @@ function App() {
       <Route path="*" element={<PNF />} />
     </Routes>
     <Footer />
-    </>
+    </div>
   );
 }
 
