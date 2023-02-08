@@ -4,6 +4,7 @@ import FileUpload from '../fileUpload/FileUpload'
 import OptionGenerator from '../optionGenerator/OptionGenerator';
 import Success from './Success';
 import { useKey } from '../../useKeyHook.js';
+import Rating from '../Rating/Rating';
 // import { createPoll } from '../../Blockchain.services'
 
 
@@ -283,6 +284,7 @@ function Createpoll() {
     </div>
     </section>
     }
+    <Rating/>
     </>
   )
 }

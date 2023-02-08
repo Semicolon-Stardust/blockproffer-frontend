@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 function Header() {
   return (
-    <div className='fixed top-0 left-0 z-[1000] border-b-[1.6px] border-[hsl(var(--su))]'>
+    <div className='fixed top-0 left-0 z-[1000] w-full border-b-[1.6px] border-[hsl(var(--su))]'>
         <div className="navbar bg-base-100">
   <div className="navbar-start">
     <div className="dropdown">

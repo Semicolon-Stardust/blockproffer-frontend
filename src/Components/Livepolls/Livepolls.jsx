@@ -1,8 +1,10 @@
 import React from 'react'
 import { useState } from 'react';
-import Chart from 'chart.js/auto';
-import { useSearchParams, Link } from 'react-router-dom';
+// import Chart from 'chart.js/auto';
+// import { useSearchParams, Link } from 'react-router-dom';
 import Pollquestion from '../Pollquestion/Pollquestion'
+import Rating from '../Rating/Rating';
+
 
 
 
@@ -88,8 +90,8 @@ async function sendRoomReq(e){
     <>
     {(room == null) ?
     
-    <div class="w-full text-center bg-gray-900">
-      <div className='bg-gray-900 flex flex-col items-center justify-center'>
+    <div class="w-full text-center">
+      <div className='flex flex-col items-center justify-center'>
         <form onSubmit={sendRoomReq}>
           {(roomNotFound === true) ? 
           <div id="alert-border-2" className="flex p-4 mb-4 text-red-800 border-t-4 border-red-300 bg-red-50 dark:text-red-400 dark:bg-gray-800 dark:border-red-800" role="alert">
@@ -103,26 +105,38 @@ async function sendRoomReq(e){
             </button>
           </div> : ""}
           <div className="w-full h-screen flex items-center justify-center flex-col gap-[5rem]">
-            <h1 className="text-5xl font-bold text-white">Enter Room ID</h1>
-            <div className="w-full flex items-center justify-center flex-row">
-              <div className="relative">
-                  <input type="text" onChange={changeRoomData} value={roomName} id="floating_filled" className="block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                  <label htmlFor="floating_filled" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Enter Room ID</label>
+            <div className='flex flex-col gap-[5rem] bg-base-300 p-[4rem] rounded-xl w-full drop-shadow-xl drop-shadow-[0_10px_10px_hsl(var(--inc))]'>
+            <h1 className="text-5xl max-sm:text-3xl font-bold">Enter Room ID</h1>
+            
+            <div className="w-full flex items-center justify-center flex-row gap-[1rem]">
+              <div className="flex flex-col">
+                  {/* <label className="label">
+                    <span className="label-text text-xl">Enter Room ID</span>
+                    <span className="label-text-alt">Title of the Voting Poll You Want</span>
+                  </label> */}
+                  <div className='indicator w-full'>
+                      {/* <span className="indicator-item badge">Required</span> */}
+                      <input type="text" name="poll-title" id="poll-title" onChange={changeRoomData} value={roomName} required placeholder="Room ID" className="input input-bordered input-error w-full" />
+                  </div>
               </div>
-              <button className="ml-2 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800">
+
+              <button className="btn btn-circle btn-outline">
                 <svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                <span className="sr-only">Icon description</span>
               </button>
+
             </div>
 
             {/* <Link to='/PollClosed' type="button" className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Vote Already Ended</Link> */}
 
           </div>
+            </div>
         </form>
       </div> 
     </div>
     
     : <Pollquestion room={room}/>}
+
+    <Rating />
 
     </>
   )
