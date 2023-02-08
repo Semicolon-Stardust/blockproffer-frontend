@@ -41,6 +41,21 @@ export default function Createpoll() {
     })
   }
   const handleSendEmail = e => {
+    setFileError("");
+
+    if (fileData.length < 1){
+      setFileError("Please upload CSV file containing voter details !");
+      removeFile();
+    }
+    else if (!sendEmail && fileData[0].Email === undefined){
+      setFileError("Please upload CSV file containing voter details with column 'Email' !");
+      removeFile();
+    }
+    else if (sendEmail && fileData[0].Token === undefined){
+      setFileError("Please upload CSV file containing voter details with column 'Token' !");
+      removeFile();
+    }
+
     setSendEmail(sendEmail ? false : true);
   }
   const handleVisibility = e => setVisibility(visibility ? false : true);
@@ -79,6 +94,7 @@ export default function Createpoll() {
 
 
   const handleFileParse = (e) => {
+    setFileError("");
          
     let inpFile = uploadHandler(e);
     
@@ -94,20 +110,32 @@ export default function Createpoll() {
 
         if (parsedData[0].Name === undefined){
           setFileError("Please input a csv file with a column named 'Name' !");
+          removeFile();
           return;
         }
         else if(sendEmail && parsedData[0].Email === undefined){
           setFileError("Please input a csv file with a column named 'Email' !");
+          removeFile();
           return;
         }
         else if (parsedData[0].Token === undefined && parsedData[0].Email === undefined){
           setFileError("Please input a csv file with a column named 'Token' or 'Email' !");
+          removeFile();
           return;
         }
 
         setFileData(parsedData);
     };
     reader.readAsText(inpFile);
+  }
+
+
+
+
+  const removeFile = () => {
+    const file = document.getElementById('file')
+    file.value = file.defaultValue;
+    setFileData([]);
   }
 
 
@@ -119,25 +147,23 @@ export default function Createpoll() {
     e.preventDefault();
     setRoomErr(null);
 
+    // Checking for Errors
     if (options.length < 2) {
       setRoomErr("Please add atleast 2 options")
       alert("Please add atleast 2 options");
       return;
     }
-
-    if (fileData.length < 1) {
+    else if (fileData.length < 1) {
       setRoomErr("Please add some voters through csv file")
       alert("Please add some voters through csv file");
       return;
     }
-
-    if (!sendEmail && fileData[0].Token === undefined) {
+    else if (!sendEmail && fileData[0].Token === undefined) {
       setRoomErr("Please add a csv file with the column 'Token'")
       alert("Please add a csv file with the column 'Token'");
       return;
     }
-
-    if (sendEmail && fileData[0].Email === undefined) {
+    else if (sendEmail && fileData[0].Email === undefined) {
       setRoomErr("Please add a csv file with the column 'Email'")
       alert("Please add a csv file with the column 'Email'");
       return;
