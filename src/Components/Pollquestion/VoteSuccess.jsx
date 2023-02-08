@@ -1,15 +1,14 @@
-import React, {useContext} from 'react'
+import React from 'react'
+// import {useContext} from 'react'
 import { useNavigate } from 'react-router-dom'
 import Results from '../Livepolls/Results'
-import { PollContext } from '../../Helpers/Contexts'
+// import { PollContext } from '../../Helpers/Contexts'
 import { Link } from 'react-router-dom'
 
 
 function VoteSuccess(props) {
 
-    const { question, setQuestion } = useContext(PollContext)
-
-    // console.log("hello")
+    // const { question, setQuestion } = useContext(PollContext)
 
     const navigate = useNavigate();
 

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useContext} from 'react'
 import { PollContext } from '../../Helpers/Contexts'
 import { Link } from 'react-router-dom'
 import { useCountdown } from '../Timer/CountDown'
@@ -7,7 +7,7 @@ import Timer from '../Timer/Timer'
 
 function PollNotStarted(props) {
 
-    const { question, setQuestion } = useContext(PollContext);
+    const { setQuestion } = useContext(PollContext);
 
     const startDate = props.roomData.startDate;
     const startTime = props.roomData.startTime;

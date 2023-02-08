@@ -1,10 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext} from 'react'
 import { PollContext } from '../../Helpers/Contexts'
 import { useCountdown } from '../Timer/CountDown';
 import Timer from '../Timer/Timer';
 
 function Questions(props) {
-    const { question, setQuestion } = useContext(PollContext);
+    const { setQuestion } = useContext(PollContext);
 
     const [optionChosen, setOptionChosen] = useState("");
 
@@ -21,7 +21,7 @@ function Questions(props) {
 
         console.log(optionChosen)
 
-        props.roomData.pollOptions.map((option, index) => {
+        props.roomData.pollOptions.forEach((option, index) => {
             if (option.optionNum === Number(optionChosen)) {
                 option.votes += 1;
                 return;
@@ -30,7 +30,7 @@ function Questions(props) {
 
 
 
-        props.roomData.allowedUsers.map((user, i) => {
+        props.roomData.allowedUsers.forEach((user, i) => {
             console.log(user)
             if (user.Token === props.userToken) {
                 console.log(user)
