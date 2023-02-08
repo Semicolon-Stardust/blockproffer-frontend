@@ -1,4 +1,6 @@
 import React from 'react'
+import Rating from '../Rating/Rating';
+import {Link} from 'react-router-dom'
 
 
 function Home() {
@@ -10,8 +12,8 @@ function Home() {
             <div className="hero-overlay bg-opacity-60"></div>
             <div className="hero-content text-center text-neutral-content">
                 <div className="w-[90%]">
-                <h1 className="mb-5 text-5xl font-bold">Secure Your Voice, Empower Your Community with Decentralized Voting</h1>
-                <p className="mb-5">Revolutionize the way you make decisions with BlockProffer, the decentralized voting platform. Empower your community by creating and participating in secure, transparent, and tamper-proof voting processes. Say goodbye to intermediaries and make your voice heard with blockchain technology. Join the future of fair and democratic voting now.</p>
+                <h1 className="mb-5 text-5xl max-sm:text-3xl font-bold">Secure Your Voice, Empower Your Community with Decentralized Voting</h1>
+                <p className="mb-5 max-sm:text-xl">Revolutionize the way you make decisions with BlockProffer, the decentralized voting platform. Empower your community by creating and participating in secure, transparent, and tamper-proof voting processes. Say goodbye to intermediaries and make your voice heard with blockchain technology. Join the future of fair and democratic voting now.</p>
                 <div className='flex items-center justify-center gap-[1rem]'>
                     <button className="btn btn-primary">Get Started</button>
                     <button className="btn btn-primary">Documentation</button>
@@ -56,6 +58,8 @@ function Home() {
             </div>
             </div>
         </section>
+
+        <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
 
         {/* Live Poll Tally */}
 
@@ -145,6 +149,8 @@ function Home() {
             </div>
         </section>
 
+        <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+
         {/* Integrations */}
 
         <section className='py-20 flex flex-col justify-center align-center flex-wrap gap-[2rem]'>
@@ -192,6 +198,8 @@ function Home() {
             </div>
         </section>
 
+        <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+
         {/* CTA Section */}
         
         <section className="py-20">
@@ -204,6 +212,53 @@ function Home() {
             </div>
         </section>
 
+        <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+
+        {/* Frequently Asked Questions */}
+
+        <section className="py-20">
+            <div className="container mx-auto px-4">
+                <div className="flex flex-col items-center justify-center gap-[2rem]">
+                    <h1 className="text-4xl font-bold">Frequently Asked Questions</h1>
+                    <p className="text-center">BlockProffer is a decentralized voting platform that allows you to create and participate in secure, transparent, and tamper-proof voting processes. Say goodbye to intermediaries and make your voice heard with blockchain technology. Join the future of fair and democratic voting now.</p>
+                </div>
+                
+                <div className="pt-[3rem] flex felx-wrap items-center justify-center gap-[2rem] border-solid rounded-2xl max-sm:flex-col">
+                    <div className="card w-96 bg-base-100 shadow-xl">
+                        <div className="card-body">
+                            <h2 className="card-title">How do I create a new Poll? </h2>
+                            <p>Just follow to the button and simply fill the form as directed.</p>
+                            <div className="card-actions justify-end">
+                            <Link to='/createpolls' className="btn btn-primary">Goto Create Poll</Link>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="card w-96 bg-base-100 shadow-xl">
+                        <div className="card-body">
+                            <h2 className="card-title">How do we take part in a Live Poll</h2>
+                            {/* <p>Live Poll </p> */}
+                            <div className="card-actions justify-end">
+                            <Link to='/livepolls' className="btn btn-primary">Goto Live Poll</Link>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="card w-96 bg-base-100 shadow-xl">
+                        <div className="card-body">
+                            <h2 className="card-title">How does BlockProffer actually work?</h2>
+                            <p>Please Follow our Documentation which will help you get started with BlockProffer.</p>
+                            <div className="card-actions justify-end">
+                            <Link className="btn btn-primary">Goto Documentation</Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {/* <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr> */}
+
+        {/* Rating */}
+        <Rating />
     </div>
   )
 }
