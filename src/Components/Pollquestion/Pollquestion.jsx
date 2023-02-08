@@ -21,6 +21,8 @@ function Pollquestion(props) {
     let endDate = new Date(props.room.endDate + " " + props.room.endTime)
     let currentDate = new Date();
 
+    console.log(hasVoted)
+
     
     if (currentDate < startDate) {
       setQuestion("pollNotStarted")

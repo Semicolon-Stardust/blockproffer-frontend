@@ -47,10 +47,10 @@ function Createpoll() {
   const handleVisibility = e => setVisibility(visibility ? false : true);
 
 
-
+  new Date().getTime()
   // ----------- Functions for file handling ----------- //
 
-
+  new Date().getTime()
   const uploadHandler = (e) => {
     setFileError("");
     
@@ -236,12 +236,12 @@ function Createpoll() {
             </label>
 
             
-            <input type="date" placeholder="Start Date" className="input input-bordered text-center input-warning w-full " name="startDate" id="startDate" onChange={handleStartDate} value={startDate} />
+            <input type="date" placeholder="Start Date" className="input input-bordered text-center input-warning w-full " name="startDate" id="startDate" onChange={handleStartDate} value={startDate} min={new Date().toISOString().split("T")[0]} />
             <label className="label">
               <span className="label-text text-xl">Start Time</span>
               <span className="label-text-alt">Required</span>
             </label>
-            <input type="time" class="input input-bordered input-accent text-center w-full " name='startTime' id='startTime' onChange={handleStartTime} value={startTime}/>
+            <input type="time" class="input input-bordered input-accent text-center w-full " name='startTime' id='startTime' onChange={handleStartTime} value={startTime} min={`${new Date().getHours()}:${new Date().getMinutes()}`} />
           </div>
           
           <div class="inline-flex items-center justify-center w-full">
@@ -254,7 +254,7 @@ function Createpoll() {
               <span className="label-text text-xl">End Date</span>
               <span className="label-text-alt">Required</span>
             </label>
-            <input type="date" placeholder="End Date" className="input input-bordered text-center input-warning w-full " name="endDate" id="endDate" onChange={handleEndDate} value={endDate} />
+            <input type="date" placeholder="End Date" className="input input-bordered text-center input-warning w-full " name="endDate" id="endDate" onChange={handleEndDate} value={endDate} min={new Date(startDate).toISOString().split("T")[0]} />
             <label className="label">
               <span className="label-text text-xl">End Time</span>
               <span className="label-text-alt">Required</span>

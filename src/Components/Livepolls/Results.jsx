@@ -17,8 +17,8 @@ function Results(props) {
   })
 
   if (totalVotes > 0){
-    dataSet.map((data, index) => {
-      return (data / totalVotes) * 100
+    dataSet.forEach((data, i) => {
+      dataSet[i] = (data / totalVotes) * 100
     })
     bg = [
       "#ff5758",
@@ -53,6 +53,8 @@ const data = {
     },
   ],
 };
+
+// console.log(data)
 
   return (
     <div class="bg-gray-900 pt-[1rem] w-full flex items-center flex-col gap-[2rem] justify-center">
