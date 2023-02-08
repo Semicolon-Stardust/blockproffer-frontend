@@ -10,7 +10,7 @@ function Results(props) {
   let totalVotes = 0;
   let bg = [];
 
-  props.roomData.pollOptions.map((option, index) => {
+  props.roomData.pollOptions.forEach((option, index) => {
     labels = [...labels, option.option]
     dataSet = [...dataSet, option.votes]
     totalVotes += option.votes

@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { PollContext } from '../../Helpers/Contexts'
 
 function StartMenu() {
-    const { question, setQuestion } = useContext(PollContext)
+    const { setQuestion } = useContext(PollContext)
   return (
     <div class='h-screen'>
       <div class='pt-[14rem] flex flex-col justify-center align-center'>

@@ -22,7 +22,7 @@ function Verification(props) {
     let userFound = false;
     let hasVoted = false;
 
-    props.roomData.allowedUsers.map((user, index) => {
+    props.roomData.allowedUsers.forEach((user, index) => {
 
       if(user.Token === tokenInput){
         props.setUserToken(tokenInput)
