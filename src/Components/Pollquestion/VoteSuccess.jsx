@@ -9,6 +9,8 @@ function VoteSuccess(props) {
 
     const { question, setQuestion } = useContext(PollContext)
 
+    // console.log("hello")
+
     const navigate = useNavigate();
 
 
