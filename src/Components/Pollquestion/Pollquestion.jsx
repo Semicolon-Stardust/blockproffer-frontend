@@ -5,6 +5,7 @@ import StartMenu from './StartMenu'
 import Verification from './Verification'
 import PollNotStarted from './PollNotStarted'
 import PollClosed from './PollClosed'
+import Camera from '../Camera/Camera'
 import { PollContext } from '../../Helpers/Contexts'
 
 function Pollquestion(props) {
@@ -43,6 +44,7 @@ function Pollquestion(props) {
           {(question === 'verification') && <Verification roomData={props.room} timerCheck={timerCheck} userToken={userToken} setUserToken={setUserToken}/>}
           {(question === 'pollNotStarted') && <PollNotStarted roomData={props.room} />}
           {(question === 'startMenu') && <StartMenu />}
+          {(question === 'faceDetection') && <Camera />}
           {(question === 'poll') && <Questions roomData={props.room} userToken={userToken} />}
           {(question === 'endScreen') && <VoteSuccess roomData={props.room}/>}
           {(question === 'finalScreen') && <PollClosed roomData={props.room}/>}

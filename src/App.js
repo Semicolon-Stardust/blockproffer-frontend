@@ -9,25 +9,23 @@ import Pollquestion from './Components/Pollquestion/Pollquestion';
 import Success from './Components/Createpoll/Success';
 import PNF from './Components/Errors/PNF';
 import { Routes, Route} from 'react-router-dom';
-import Camera from './Components/Camera/Camera';
 
 
 function App() {
   return (
     <div className='scroll-smooth'>
-    <Header />
-    <Routes>
-      <Route path='/' element={<Home />} />
-      <Route path='/about' element={<About />} />
-      <Route path='/contact' element={<Contact />} />
-      <Route path="/livepolls" element={<Livepolls/>} />
-      <Route path="/createpolls" element={<Createpoll />} />
-      <Route path="/pollquestion" element={<Pollquestion />} />
-      <Route path="/success" element={<Success />} />
-      <Route path="/camera" element={<Camera />} />
-      <Route path="*" element={<PNF />} />
-    </Routes>
-    <Footer />
+      <Header />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path="/livepolls" element={<Livepolls/>} />
+          <Route path="/createpolls" element={<Createpoll />} />
+          <Route path="/pollquestion" element={<Pollquestion />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="*" element={<PNF />} />
+        </Routes>
+      <Footer />
     </div>
   );
 }
