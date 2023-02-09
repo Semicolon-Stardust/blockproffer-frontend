@@ -68,7 +68,21 @@ function Camera() {
                 </div>
                 <div className='flex justify-center items-center gap-[0.5rem]'>
                     <span className='text-xl'>{(initializing === "Multiple Faces Detected") ? <i class="fa-solid fa-circle-xmark text-red-500"></i> : ""}</span>
-                    <span className='text-xl'>{(initializing === "Multiple Faces Detected") ? <><input type="checkbox" id="my-modal" className="modal-toggle" checked/><div className="modal"><div className="modal-box"><h3 className="font-bold text-lg">There are More than One Person in the Frame</h3><p className="py-4">Please don't let this happen again we will have to forcefully kick you out from the room...</p><div className="modal-action"><label htmlFor="my-modal" className="btn">Sorry man, Won't Happen again...</label></div></div></div></> : ""}</span>
+                    <span className='text-xl'>
+                        {(initializing === "Multiple Faces Detected") ? 
+                        <>
+                            <input type="checkbox" id="my-modal" className="modal-toggle" checked/>
+                            <div className="modal">
+                                <div className="modal-box">
+                                    <h3 className="font-bold text-lg">There are More than One Person in the Frame</h3>
+                                    <p className="py-4">Please don't let this happen again we will have to forcefully kick you out from the room...</p>
+                                    <div className="modal-action">
+                                        <label htmlFor="my-modal" className="btn">Sorry man, Won't Happen again...</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </> : ""}
+                    </span>
                     <span className='text-xl text-accent-focus'>{(initializing === "Multiple Faces Detected") ? initializing : ""}</span>
                 </div>
             </div>

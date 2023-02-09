@@ -1,11 +1,66 @@
-import React, { useState, useContext} from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import { PollContext } from '../../Helpers/Contexts'
 import { useCountdown } from '../Timer/CountDown';
 import Timer from '../Timer/Timer';
+import Webcam from "react-webcam";
+import * as faceapi from 'face-api.js';
+
 
 function Questions(props) {
     const { setQuestion } = useContext(PollContext);
 
+    // ------------------ Face Detection ------------------ //
+    const videoConstraints = {
+        width: 300,
+        height: 200,
+        facingMode: "environment",
+        mirrored: false,
+    };
+
+
+    const [initializing, setInitializing] = useState(null);
+
+    const webcamRef = useRef(null);
+    
+    useEffect(() => {
+        const loadModels = async () => {
+            const MODEL_URL = process.env.PUBLIC_URL + '/models';
+            Promise.all([
+                faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL)
+            ]).then(startVideo);
+        }
+        loadModels();
+    }, []);
+
+    const startVideo = () => {
+        navigator.mediaDevices.getUserMedia({ 
+            video: {} 
+        }, (stream) => {
+            webcamRef.current.srcObject = stream;
+        });
+
+    }
+
+    const onUserMedia = (e) => {
+        setInterval(async () => {
+            const detections = await faceapi.detectAllFaces(webcamRef.current.video, new faceapi.TinyFaceDetectorOptions());
+            
+            if (detections.length === 0) {
+                setInitializing(null);
+            }
+            else if (detections.length > 1) {
+                setInitializing("multiple");
+            }
+            else if (detections.length === 1) {
+                setInitializing("detected");
+            }
+
+        }, 1000);     
+
+    };
+
+
+    // ------------------ Option Selection ------------------ //
     const [optionChosen, setOptionChosen] = useState("");
 
     const selectOption = (e) => {
@@ -15,11 +70,8 @@ function Questions(props) {
 
 
     const addVote = async () => {
-        console.log(1)
         
         if (optionChosen === "") return;
-
-        console.log(optionChosen)
 
         props.roomData.pollOptions.forEach((option, index) => {
             if (option.optionNum === Number(optionChosen)) {
@@ -27,8 +79,6 @@ function Questions(props) {
                 return;
             }
         })
-
-
 
         props.roomData.allowedUsers.forEach((user, i) => {
             console.log(user)
@@ -38,8 +88,6 @@ function Questions(props) {
                 return;
             }
         })
-
-        console.log(props.roomData.allowedUsers)
 
 
         const response = await fetch('http://localhost:5555/room/upvote', {
@@ -53,8 +101,6 @@ function Questions(props) {
                 'Content-type': 'application/json; charset=UTF-8',
             },
         })
-
-        console.log(response.status)
 
         if (response.status === 201){
             const data = await response.json();
@@ -79,6 +125,29 @@ function Questions(props) {
         return (
 
             <>
+            <div className="detector" style={{position: "fixed", bottom: "20px", left: "50px"}}>
+                <Webcam ref={webcamRef} audio={false} screenshotFormat="image/jpeg" videoConstraints={videoConstraints} onUserMedia={onUserMedia}/>
+            </div>
+            <span className='text-xl'>
+                {(initializing !== "detected") ? 
+                <>
+                    <input type="checkbox" id="my-modal" className="modal-toggle" checked/>
+                    <div className="modal">
+                        <div className="modal-box">
+                            {(initializing === null) ? 
+                            <>
+                            <h3 className="font-bold text-lg">We are not able to detect your Face</h3>
+                            <p className="py-4">Please keep your face within the camera frame, otherwise we can't let you vote...</p>
+                            </> :
+                            <>
+                            <h3 className="font-bold text-lg">There are More than One Person in the Frame</h3>
+                            <p className="py-4">Please don't let this happen, otherwise we can't let you vote...</p>
+                            </>
+                            }
+                        </div>
+                    </div>
+                </> : ""}
+            </span>
             <div class=' h-screen w-full flex flex-col align-center justify-center'>
                 <div class='flex justify-center align-center'>
                     <div class='flex justify-center align-center w-8/12'>
