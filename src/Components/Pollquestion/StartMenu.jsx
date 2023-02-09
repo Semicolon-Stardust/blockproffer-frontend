@@ -15,7 +15,7 @@ function StartMenu() {
         </ul>
       </div>
       <div class='flex justify-center align-center pt-[2rem]'>
-        <button class="btn btn-ghost" onClick= {() => setQuestion("poll")}>
+        <button class="btn btn-ghost" onClick= {() => setQuestion("faceDetection")}>
           <span class='text-[2rem]'>
             Start
           </span>

@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
+import { PollContext } from '../../Helpers/Contexts'
 import * as faceapi from 'face-api.js';
 import Webcam from "react-webcam";
 
@@ -6,6 +7,8 @@ import Webcam from "react-webcam";
 
 
 function Camera() {
+
+    const { setQuestion } = useContext(PollContext);
 
     const videoConstraints = {
         width: 854,
@@ -70,7 +73,7 @@ function Camera() {
                 <Webcam ref={webcamRef} audio={false} screenshotFormat="image/jpeg" videoConstraints={videoConstraints} onUserMedia={onUserMedia}/>
             </div>
             <div className='pt-[1rem] flex justify-center gap-[1rem] align-center'>
-                {(initializing !== "" && initializing !== "Multiple Faces Detected") ? <button className='btn' onClick={e => {console.log("Next")}}>Next</button> : <button class="btn loading">loading</button>}
+                {(initializing !== "" && initializing !== "Multiple Faces Detected") ? <button className='btn' onClick={e => setQuestion("poll")}>Next</button> : <button class="btn loading">loading</button>}
             </div>
         </div>
     )

@@ -9,7 +9,6 @@ import Pollquestion from './Components/Pollquestion/Pollquestion';
 import Success from './Components/Createpoll/Success';
 import PNF from './Components/Errors/PNF';
 import { Routes, Route} from 'react-router-dom';
-import Camera from './Components/Camera/Camera';
 
 
 function App() {
@@ -24,7 +23,6 @@ function App() {
       <Route path="/createpolls" element={<Createpoll />} />
       <Route path="/pollquestion" element={<Pollquestion />} />
       <Route path="/success" element={<Success />} />
-      <Route path="/camera" element={<Camera />} />
       <Route path="*" element={<PNF />} />
     </Routes>
     <Footer />
