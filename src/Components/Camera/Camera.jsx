@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
+import { PollContext } from '../../Helpers/Contexts'
 import * as faceapi from 'face-api.js';
 import Webcam from "react-webcam";
 
@@ -6,6 +7,8 @@ import Webcam from "react-webcam";
 
 
 function Camera() {
+
+    const { setQuestion } = useContext(PollContext);
 
     const videoConstraints = {
         width: 854,
@@ -65,7 +68,21 @@ function Camera() {
                 </div>
                 <div className='flex justify-center items-center gap-[0.5rem]'>
                     <span className='text-xl'>{(initializing === "Multiple Faces Detected") ? <i class="fa-solid fa-circle-xmark text-red-500"></i> : ""}</span>
-                    <span className='text-xl'>{(initializing === "Multiple Faces Detected") ? <><input type="checkbox" id="my-modal" className="modal-toggle" checked/><div className="modal"><div className="modal-box"><h3 className="font-bold text-lg">There are More than One Person in the Frame</h3><p className="py-4">Please don't let this happen again we will have to forcefully kick you out from the room...</p><div className="modal-action"><label htmlFor="my-modal" className="btn">Sorry man, Won't Happen again...</label></div></div></div></> : ""}</span>
+                    <span className='text-xl'>
+                        {(initializing === "Multiple Faces Detected") ? 
+                        <>
+                            <input type="checkbox" id="my-modal" className="modal-toggle" checked/>
+                            <div className="modal">
+                                <div className="modal-box">
+                                    <h3 className="font-bold text-lg">There are More than One Person in the Frame</h3>
+                                    <p className="py-4">Please don't let this happen again we will have to forcefully kick you out from the room...</p>
+                                    <div className="modal-action">
+                                        <label htmlFor="my-modal" className="btn">Sorry man, Won't Happen again...</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </> : ""}
+                    </span>
                     <span className='text-xl text-accent-focus'>{(initializing === "Multiple Faces Detected") ? initializing : ""}</span>
                 </div>
             </div>
@@ -73,7 +90,7 @@ function Camera() {
                 <Webcam ref={webcamRef} audio={false} screenshotFormat="image/jpeg" videoConstraints={videoConstraints} onUserMedia={onUserMedia}/>
             </div>
             <div className='pt-[1rem] flex justify-center gap-[1rem] align-center'>
-                {(initializing !== "" && initializing !== "Multiple Faces Detected") ? <button className='btn' onClick={e => {console.log("Next")}}>Next</button> : <button class="btn loading">loading</button>}
+                {(initializing !== "" && initializing !== "Multiple Faces Detected") ? <button className='btn' onClick={e => setQuestion("poll")}>Next</button> : <button class="btn loading">loading</button>}
             </div>
         </div>
     )
