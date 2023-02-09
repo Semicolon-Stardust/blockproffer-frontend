@@ -125,7 +125,7 @@ function Questions(props) {
         return (
 
             <>
-            <div className="detector" style={{position: "fixed", bottom: "20px", left: "50px"}}>
+            <div className="detector" style={{position: "fixed", bottom: "20px", left: "50px", zIndex: "1000"}}>
                 <Webcam ref={webcamRef} audio={false} screenshotFormat="image/jpeg" videoConstraints={videoConstraints} onUserMedia={onUserMedia}/>
             </div>
             <span className='text-xl'>
@@ -137,7 +137,7 @@ function Questions(props) {
                             {(initializing === null) ? 
                             <>
                             <h3 className="font-bold text-lg">We are not able to detect your Face</h3>
-                            <p className="py-4">Please keep your face within the camera frame, otherwise we can't let you vote...</p>
+                            <p className="py-4">Please keep your face within the camera frame, otherwise we can't let you vote... <br /><br /> Note: If there is too much light in the background, you may use flashlight near your face.</p>
                             </> :
                             <>
                             <h3 className="font-bold text-lg">There are More than One Person in the Frame</h3>
