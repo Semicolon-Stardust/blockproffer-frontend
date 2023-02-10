@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Webcam from "react-webcam";
 import * as faceapi from 'face-api.js';
 
-const DraggableCamera = () => {
+const DraggableCamera = (props) => {
   const [isDragging, setIsDragging] = useState(false);
   const [initialX, setInitialX] = useState(0);
   const [initialY, setInitialY] = useState(0);
@@ -22,9 +22,6 @@ const DraggableCamera = () => {
         facingMode: "environment",
         mirrored: false,
     };
-
-
-    const [initializing, setInitializing] = useState(null);
 
     const webcamRef = useRef(null);
     
@@ -52,13 +49,13 @@ const DraggableCamera = () => {
             const detections = await faceapi.detectAllFaces(webcamRef.current.video, new faceapi.TinyFaceDetectorOptions());
             
             if (detections.length === 0) {
-                setInitializing(null);
+                props.setInitializing(null);
             }
             else if (detections.length > 1) {
-                setInitializing("multiple");
+                props.setInitializing("multiple");
             }
             else if (detections.length === 1) {
-                setInitializing("detected");
+                props.setInitializing("detected");
             }
 
         }, 1000);     
@@ -94,7 +91,7 @@ const DraggableCamera = () => {
             zIndex: "100000",
         }}
         >
-      <div className="detector fixed bottom-[20px] left-[50px]">
+      <div className="detector fixed top-[100px] left-[50px]">
                 <Webcam ref={webcamRef} audio={false} screenshotFormat="image/jpeg" videoConstraints={videoConstraints} onUserMedia={onUserMedia}/>
         </div>
     </div>

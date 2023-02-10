@@ -4,7 +4,7 @@ import { useCountdown } from '../Timer/CountDown';
 import Timer from '../Timer/Timer';
 import Webcam from "react-webcam";
 import * as faceapi from 'face-api.js';
-import DraggableCamera from '../DraggableContent/DraggableCamera';
+// import DraggableCamera from '../DraggableContent/DraggableCamera';
 
 
 function Questions(props) {
@@ -126,11 +126,11 @@ function Questions(props) {
         return (
 
             <>
-            {/* <div className="detector" style={{position: "fixed", bottom: "20px", left: "50px", zIndex: "1000"}}>
+            <div className="detector  fixed bottom-[50px] left-[50px] z-[1000]">
                 <Webcam ref={webcamRef} audio={false} screenshotFormat="image/jpeg" videoConstraints={videoConstraints} onUserMedia={onUserMedia}/>
-            </div> */}
+            </div>
 
-            <DraggableCamera />
+            {/* <DraggableCamera initializing={initializing} setInitializing={setInitializing} /> */}
 
             <span className='text-xl'>
                 {(initializing !== "detected") ? 
