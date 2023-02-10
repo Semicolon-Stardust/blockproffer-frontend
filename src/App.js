@@ -24,6 +24,7 @@ function App() {
           <Route path="/pollquestion" element={<Pollquestion />} />
           <Route path="/success" element={<Success />} />
           <Route path="*" element={<PNF />} />
+          <Route path="/" element={<PNF />} />
         </Routes>
       <Footer />
     </div>
