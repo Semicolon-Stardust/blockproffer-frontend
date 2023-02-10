@@ -9,6 +9,7 @@ import Pollquestion from './Components/Pollquestion/Pollquestion';
 import Success from './Components/Createpoll/Success';
 import PNF from './Components/Errors/PNF';
 import { Routes, Route} from 'react-router-dom';
+import Results from './Components/Livepolls/Results';
 
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
           <Route path="/pollquestion" element={<Pollquestion />} />
           <Route path="/success" element={<Success />} />
           <Route path="*" element={<PNF />} />
-          <Route path="/" element={<PNF />} />
+          <Route path="/results" element={<Results />} />
         </Routes>
       <Footer />
     </div>
